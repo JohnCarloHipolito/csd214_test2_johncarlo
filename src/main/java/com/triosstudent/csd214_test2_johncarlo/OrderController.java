@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -60,6 +61,48 @@ public class OrderController {
     public void setData(AccountInfo accountInfo) {
         this.accountInfo = accountInfo;
         userNameLbl.setText(accountInfo.getUsername());
+    }
+
+    @FXML
+    protected void initialize() {
+        orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        totalPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+
+        orderTbl.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && event.getButton().equals(javafx.scene.input.MouseButton.PRIMARY)) {
+                OrderDetails selectedItem = orderTbl.getSelectionModel().getSelectedItem();
+                orderIdTF.setText(String.valueOf(selectedItem.getOrderId()));
+                productNameTF.setText(selectedItem.getProductName());
+                quantityTF.setText(String.valueOf(selectedItem.getQuantity()));
+                totalPriceTF.setText(String.valueOf(selectedItem.getTotalPrice()));
+            }
+        });
+
+
+        //restrict idTF to accept only integer values
+        orderIdTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^([1-9]\\d*)?$")) {
+                orderIdTF.setText(oldValue);
+            }
+        });
+
+        //restrict quantityTF to accept only integer values
+        quantityTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^([1-9]\\d*)?$")) {
+                quantityTF.setText(oldValue);
+            }
+        });
+
+        //restrict totalPriceTF to accept only decimal values
+        totalPriceTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^([0-9]+([,.][0-9]{0,2})?)?$")) {
+                totalPriceTF.setText(oldValue);
+            }
+        });
+
+
     }
 
     @FXML

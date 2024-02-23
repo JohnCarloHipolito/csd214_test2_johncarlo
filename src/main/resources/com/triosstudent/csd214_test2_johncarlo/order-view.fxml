@@ -15,7 +15,10 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Hyperlink fx:id="logoutHL" onMouseClicked="#onLogout" text="Logout"/>
     </HBox>
-    <Label fx:id="userNameLbl" style="-fx-font-weight: bold"/>
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="userNameLbl" style="-fx-font-weight: bold"/>
+    </HBox>
+
     <Pane minHeight="20.0"/>
 
     <HBox alignment="CENTER" spacing="10.0">
