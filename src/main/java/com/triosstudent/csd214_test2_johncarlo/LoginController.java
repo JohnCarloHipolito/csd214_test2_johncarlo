@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class LoginController {
     protected void onLogin() {
         // validate email and password
         if(emailTF.getText().isEmpty() || passwordTF.getText().isEmpty()) {
+            messageLbl.setTextFill(Color.RED);
             messageLbl.setText("Please provide email and password");
             return;
         }

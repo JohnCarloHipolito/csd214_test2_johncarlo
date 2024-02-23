@@ -12,7 +12,7 @@ public class OrderMgmtApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(OrderMgmtApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("CSD214_Test2 John Carlo - Order Management System");
         stage.setScene(scene);
         stage.show();
     }
