@@ -177,7 +177,21 @@ public class OrderController {
     }
 
     private void deleteItem(Connection connection) throws SQLException {
+        // validate if id is empty
+        if (orderIdTF.getText().isEmpty()) {
+            messageLbl.setTextFill(Color.RED);
+            messageLbl.setText("'Id' should not be empty when deleting order detail.");
+            return;
+        }
+        String deleteQuery = "DELETE FROM order_details WHERE order_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+        preparedStatement.setLong(1, Long.parseLong(orderIdTF.getText()));
+        preparedStatement.executeUpdate();
 
+        orderTbl.getItems().removeIf(item -> item.getOrderId() == Long.parseLong(orderIdTF.getText()));
+        messageLbl.setTextFill(Color.GREEN);
+        messageLbl.setText("Item was deleted successfully.");
+        clearFields();
     }
 
     private void clearFields() {
