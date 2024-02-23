@@ -49,10 +49,12 @@ public class LoginController {
                 inventoryStage.setScene(new Scene(root));
                 inventoryStage.setTitle("CSD214_Test2 John Carlo - Order Management System");
                 inventoryStage.show();
+                System.out.printf("INFO: %s logged in.%n", resultSet.getString("username"));
 
                 Stage loginStage = (Stage) emailTF.getScene().getWindow();
                 loginStage.close();
             } else {
+                messageLbl.setTextFill(Color.RED);
                 messageLbl.setText("Login failed.");
             }
         } catch (SQLException e) {
