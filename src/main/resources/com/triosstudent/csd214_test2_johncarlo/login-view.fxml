@@ -25,5 +25,5 @@
     <Pane minHeight="25"/>
     <Label fx:id="messageLbl"/>
     <Pane minHeight="10"/>
-    <Button fx:id="loginBtn" onAction="#onLogin" text="Login" minWidth="250"/>
+    <Button onAction="#onLogin" text="Login" minWidth="250"/>
 </VBox>

@@ -13,7 +13,7 @@
     <HBox>
         <Label text="Order Details" style="-fx-font-weight: bold; -fx-font-size: 20"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Hyperlink onMouseClicked="#onLogout" text="Logout"/>
+        <Hyperlink fx:id="logoutHL" onMouseClicked="#onLogout" text="Logout"/>
     </HBox>
     <Pane minHeight="20.0"/>
 
