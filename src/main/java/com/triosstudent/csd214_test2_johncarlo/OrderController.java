@@ -110,6 +110,27 @@ public class OrderController {
     }
 
     private void createItem(Connection connection) throws SQLException {
+        // validate if id is empty
+        if (!orderIdTF.getText().isEmpty()) {
+            messageLbl.setTextFill(Color.RED);
+            messageLbl.setText("'Id' should be empty when adding order detail.");
+            return;
+        }
+        // validate if name, price, and quantity are empty
+        if (productNameTF.getText().isEmpty() || quantityTF.getText().isEmpty() || totalPriceTF.getText().isEmpty()) {
+            messageLbl.setTextFill(Color.RED);
+            messageLbl.setText("'Name', 'Price', and 'Quantity' are required to add order detail.");
+            return;
+        }
+        String createQuery = "INSERT INTO order_details (product_name, quantity, total_price) VALUES (?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(createQuery);
+        preparedStatement.setString(1, productNameTF.getText());
+        preparedStatement.setInt(2, Integer.parseInt(quantityTF.getText()));
+        preparedStatement.setDouble(3, Double.parseDouble(totalPriceTF.getText()));
+        preparedStatement.executeUpdate();
+        messageLbl.setTextFill(Color.GREEN);
+        messageLbl.setText("Item was created successfully.");
+        clearFields();
     }
 
     private void updateItem(Connection connection) throws SQLException {
