@@ -1,12 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.triosstudent.csd214_test2_johncarlo.OrderController"
-      prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="400" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      fx:controller="com.triosstudent.csd214_test2_johncarlo.OrderController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
+    <HBox>
+        <Label text="Order Details" style="-fx-font-weight: bold; -fx-font-size: 20"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Hyperlink onMouseClicked="#onLogout" text="Logout"/>
+    </HBox>
+    <Pane minHeight="20.0"/>
+
+    <HBox alignment="CENTER" spacing="10.0">
+        <TextField fx:id="orderIdTF" prefWidth="80" promptText="Order Id"/>
+        <TextField fx:id="productNameTF" prefWidth="200" promptText="Product Name"/>
+        <TextField fx:id="quantityTF" prefWidth="100" promptText="Quantity"/>
+        <TextField fx:id="totalPriceTF" prefWidth="100" promptText="Total Price"/>
+    </HBox>
+    <Pane minHeight="10.0"/>
+
+    <HBox alignment="CENTER" spacing="10.0">
+        <Button fx:id="readBtn" minWidth="100" onAction="#executeQuery" text="Read Orders" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="createBtn" minWidth="100" onAction="#executeQuery" text="Add Order" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="updateBtn" minWidth="100" onAction="#executeQuery" text="Update Order" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="deleteBtn" minWidth="100" onAction="#executeQuery" text="Delete Order" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <Pane minHeight="10.0"/>
+
+    <TableView fx:id="itemTbl">
+        <columns>
+            <TableColumn fx:id="orderIdCol" prefWidth="90" text="Order Id"/>
+            <TableColumn fx:id="productNameCol" prefWidth="210" text="Product Name"/>
+            <TableColumn fx:id="quantityCol" prefWidth="110" text="Quantity"/>
+            <TableColumn fx:id="totalPriceCol" prefWidth="100" text="Total Price"/>
+        </columns>
+    </TableView>
+    <HBox style="-fx-border-color: lightgray; -fx-border-width: 1;">
+        <padding>
+            <Insets left="5.0" right="5.0"/>
+        </padding>
+        <Label fx:id="messageLbl" style="-fx-font-weight: bold"/>
+    </HBox>
 </VBox>
