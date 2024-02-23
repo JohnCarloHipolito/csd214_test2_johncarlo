@@ -123,20 +123,61 @@ public class OrderController {
             return;
         }
         String createQuery = "INSERT INTO order_details (product_name, quantity, total_price) VALUES (?, ?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(createQuery);
+        PreparedStatement preparedStatement = connection.prepareStatement(createQuery, PreparedStatement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, productNameTF.getText());
         preparedStatement.setInt(2, Integer.parseInt(quantityTF.getText()));
         preparedStatement.setDouble(3, Double.parseDouble(totalPriceTF.getText()));
         preparedStatement.executeUpdate();
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            orderTbl.getItems().add(new OrderDetails(
+                    generatedKeys.getLong(1),
+                    productNameTF.getText(),
+                    Integer.parseInt(quantityTF.getText()),
+                    Double.parseDouble(totalPriceTF.getText())
+            ));
+        }
         messageLbl.setTextFill(Color.GREEN);
         messageLbl.setText("Item was created successfully.");
         clearFields();
     }
 
     private void updateItem(Connection connection) throws SQLException {
+        // validate if id is empty
+        if (orderIdTF.getText().isEmpty()) {
+            messageLbl.setTextFill(Color.RED);
+            messageLbl.setText("'Id' should not be empty when updating order detail.");
+            return;
+        }
+        // validate if name, price, and quantity are empty
+        if (productNameTF.getText().isEmpty() || quantityTF.getText().isEmpty() || totalPriceTF.getText().isEmpty()) {
+            messageLbl.setTextFill(Color.RED);
+            messageLbl.setText("'Name', 'Price', and 'Quantity' are required to update order detail.");
+            return;
+        }
+        String updateQuery = "UPDATE order_details SET product_name = ?, quantity = ?, total_price = ? WHERE order_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+        preparedStatement.setString(1, productNameTF.getText());
+        preparedStatement.setInt(2, Integer.parseInt(quantityTF.getText()));
+        preparedStatement.setDouble(3, Double.parseDouble(totalPriceTF.getText()));
+        preparedStatement.setLong(4, Long.parseLong(orderIdTF.getText()));
+        preparedStatement.executeUpdate();
+
+        orderTbl.getItems().stream()
+                .filter(item -> item.getOrderId() == Long.parseLong(orderIdTF.getText()))
+                .forEach(item -> {
+                    item.setProductName(productNameTF.getText());
+                    item.setQuantity(Integer.parseInt(quantityTF.getText()));
+                    item.setTotalPrice(Double.parseDouble(totalPriceTF.getText()));
+                    orderTbl.refresh();
+                });
+
+        messageLbl.setTextFill(Color.GREEN);
+        messageLbl.setText("Item was updated successfully.");
     }
 
     private void deleteItem(Connection connection) throws SQLException {
+
     }
 
     private void clearFields() {
