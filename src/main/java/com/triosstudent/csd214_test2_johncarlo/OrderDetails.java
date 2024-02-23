@@ -1,13 +1,13 @@
 package com.triosstudent.csd214_test2_johncarlo;
 
-public class OderDetails {
+public class OrderDetails {
 
     private Long orderId;
     private String productName;
     private Integer quantity;
     private Double totalPrice;
 
-    public OderDetails(Long orderId, String productName, Integer quantity, Double totalPrice) {
+    public OrderDetails(Long orderId, String productName, Integer quantity, Double totalPrice) {
         this.orderId = orderId;
         this.productName = productName;
         this.quantity = quantity;

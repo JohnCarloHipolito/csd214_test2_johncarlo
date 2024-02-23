@@ -15,6 +15,7 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Hyperlink fx:id="logoutHL" onMouseClicked="#onLogout" text="Logout"/>
     </HBox>
+    <Label fx:id="userNameLbl" style="-fx-font-weight: bold"/>
     <Pane minHeight="20.0"/>
 
     <HBox alignment="CENTER" spacing="10.0">
@@ -33,7 +34,7 @@
     </HBox>
     <Pane minHeight="10.0"/>
 
-    <TableView fx:id="itemTbl">
+    <TableView fx:id="orderTbl">
         <columns>
             <TableColumn fx:id="orderIdCol" prefWidth="90" text="Order Id"/>
             <TableColumn fx:id="productNameCol" prefWidth="210" text="Product Name"/>
